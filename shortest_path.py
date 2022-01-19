@@ -1,30 +1,29 @@
 import sys
 from file_parser import *
 
-
 infi = sys.maxsize
 
 
-def dijkstraDist(g, s, path):
+def dijkstraDist(nodes_list, src, path):
 
-    dist = [infi for i in range(len(g))]
-    visited = [False for i in range(len(g))]
-    dist[s] = 0
-    current = s
+    dist = [infi for i in range(len(nodes_list))]
+    visited = [False for i in range(len(nodes_list))]
+    dist[src] = 0
+    current = src
 
     sett = set()
     while True:
         visited[current] = True
-        for i in range(len(g[current].children)):
-            v = g[current].children[i].first
+        for i in range(len(nodes_list[current].children)):
+            v = nodes_list[current].children[i].first
             if visited[v]:
                 continue
             sett.add(v)
-            alt = dist[current] + g[current].children[i].second
+            alt = dist[current] + nodes_list[current].children[i].second
 
             if alt < dist[v]:
                 dist[v] = alt
-                path[v] = [current, g[current].children[i].second]
+                path[v] = [current, nodes_list[current].children[i].second]
         if current in sett:
             sett.remove(current)
         if len(sett) == 0:
@@ -44,11 +43,12 @@ def dijkstraDist(g, s, path):
 def shortest_path():
     dct = parse_file("graph.txt")
     src, dst = generate_params(dct)
-    res = generate_graph(dct)
+    node_list = generate_graph(dct)
+    print(node_list)
     path = [[] for i in range(len(dct))]
-    dist = dijkstraDist(res, src, path)
+    dist = dijkstraDist(node_list, src, path)
     print("from", src, "to", dst, "cost", dist[dst])
-    return path,src,dst
+    return path, src, dst
 
 
 def get_path(path,dst):
