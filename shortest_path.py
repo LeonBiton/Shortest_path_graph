@@ -6,9 +6,9 @@ infi = sys.maxsize
 
 def dijkstraDist(nodes_list, src, path):
 
-    dist = [infi for i in range(len(nodes_list))]
+    distance = [infi for i in range(len(nodes_list))]
     visited = [False for i in range(len(nodes_list))]
-    dist[src] = 0
+    distance[src] = 0
     current = src
 
     sett = set()
@@ -19,32 +19,32 @@ def dijkstraDist(nodes_list, src, path):
             if visited[v]:
                 continue
             sett.add(v)
-            alt = dist[current] + nodes_list[current].children[i].second
+            alt = distance[current] + nodes_list[current].children[i].second
 
-            if alt < dist[v]:
-                dist[v] = alt
+            if alt < distance[v]:
+                distance[v] = alt
                 path[v] = [current, nodes_list[current].children[i].second]
         if current in sett:
             sett.remove(current)
         if len(sett) == 0:
             break
 
-        mindist = infi
+        print(sett)
+        min_distance = infi
         index = 0
 
         for a in sett:
-            if dist[a] < mindist:
-                mindist = dist[a]
+            if distance[a] < min_distance:
+                min_distance = distance[a]
                 index = a
         current = index
-    return dist
+    return distance
 
 
 def shortest_path():
     dct = parse_file("graph.txt")
     src, dst = generate_params(dct)
     node_list = generate_graph(dct)
-    print(node_list)
     path = [[] for i in range(len(dct))]
     dist = dijkstraDist(node_list, src, path)
     print("from", src, "to", dst, "cost", dist[dst])
