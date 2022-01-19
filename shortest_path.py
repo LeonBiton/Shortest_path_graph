@@ -15,21 +15,20 @@ def dijkstraDist(nodes_list, src, path):
     while True:
         visited[current] = True
         for i in range(len(nodes_list[current].children)):
-            v = nodes_list[current].children[i].first
-            if visited[v]:
+            vertex = nodes_list[current].children[i].first
+            if visited[vertex]:
                 continue
-            sett.add(v)
+            sett.add(vertex)
             alt = distance[current] + nodes_list[current].children[i].second
 
-            if alt < distance[v]:
-                distance[v] = alt
-                path[v] = [current, nodes_list[current].children[i].second]
+            if alt < distance[vertex]:
+                distance[vertex] = alt
+                path[vertex] = [current, nodes_list[current].children[i].second]
         if current in sett:
             sett.remove(current)
         if len(sett) == 0:
             break
 
-        print(sett)
         min_distance = infi
         index = 0
 
@@ -47,7 +46,7 @@ def shortest_path():
     node_list = generate_graph(dct)
     path = [[] for i in range(len(dct))]
     dist = dijkstraDist(node_list, src, path)
-    print("from", src, "to", dst, "cost", dist[dst])
+    #print("from", src, "to", dst, "cost", dist[dst])
     return path, src, dst
 
 
