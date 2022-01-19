@@ -1,4 +1,4 @@
-from directed_graph import *
+from shortest_path import *
 
 if __name__ == '__main__':
     path, src, dst = shortest_path()
