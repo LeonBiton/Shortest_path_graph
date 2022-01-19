@@ -11,9 +11,11 @@ def dijkstraDist(nodes_list, src, path):
     distance[src] = 0
     current = src
 
+    #set of all childrens
     sett = set()
     while True:
         visited[current] = True
+        #iterate all current node childrens
         for i in range(len(nodes_list[current].children)):
             vertex = nodes_list[current].children[i].first
             if visited[vertex]:
@@ -32,6 +34,7 @@ def dijkstraDist(nodes_list, src, path):
         min_distance = infi
         index = 0
 
+        #iterate set and find the smallest dist
         for a in sett:
             if distance[a] < min_distance:
                 min_distance = distance[a]
